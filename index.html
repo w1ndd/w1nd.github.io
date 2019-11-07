@@ -54,4 +54,86 @@
   </p>
   <p><img src="wallpapers-hd-1920x1080-7.jpg" alt="Forest." width="1920" height="1080"></p>
 
+<canvas id="my_canvas" width="700" height="600"></canvas>
+
+<script>
+// https://progur.com/2016/10/procedural-generation-create-fractal-trees-javascript.html
+
+var myCanvas = document.getElementById("my_canvas");
+var ctx = myCanvas.getContext("2d");
+
+function draw(startX, startY, len, angle) {
+  ctx.beginPath();
+  ctx.save();
+  
+  ctx.translate(startX, startY);
+  ctx.rotate(angle * (Math.PI/180));
+  ctx.moveTo(0, 0);
+  ctx.lineTo(0, -len);
+  ctx.stroke();
+  
+  if(len < 10) {
+    ctx.restore();
+    return;
+  }
+  
+  draw(0, -len, len*0.8, -15);
+  draw(0, -len, len*0.8, 15);
+  
+  ctx.restore();
+}
+
+draw(350,600,120,0);
+
+
+/*
+
+
+// https://progur.com/2016/10/procedural-generation-create-koch-curve-javascript.html
+
+function generateSequence() {
+    var sequence = "0";
+    for(var i=0; i < 20; i++) {
+        var parts = sequence.split("");
+        var complement = "";
+        for(var j=0; j<parts.length; j++) {
+            complement = complement + 
+                      (parts[j] == "0" ? "1" : "0");
+        }
+        sequence += complement;
+    }
+    return sequence;
+}
+
+function draw() {
+  var sequence = generateSequence();
+  var parts = sequence.split("");
+  ctx.translate(0, myCanvas.height);
+  ctx.beginPath();
+  ctx.moveTo(0,0);
+  for(var i = 0; i < parts.length; i++) {
+    if(parts[i] == "0") {
+        ctx.translate(0,0.1);
+        ctx.lineTo(0,0.1);            
+    } else {
+        ctx.rotate(Math.PI/3);
+    }
+  }
+  ctx.stroke();
+}
+
+draw();
+*/
+
+/*
+
+https://progur.com/2017/02/create-mandelbrot-fractal-javascript.html
+
+https://stackoverflow.com/questions/49785734/animating-a-fractal-tree-inside-a-javascript-canvas
+
+*/
+
+</script>
+
 </body>
+</html>
